@@ -97,34 +97,41 @@ This folder contains the demo grids and the start destination point sets copied 
 ### 1. Raw A Star
 The baseline planner computes a feasible collision free path on the binary occupancy grid. This path is discrete and grid constrained, and therefore serves as the reference trajectory for all subsequent stages.
 
-![Raw A Star to VLoSPS](assets/gifs/02_raw_aastar_to_vlosps.gif)
-
 ### 2. VLoSPS
 VLoSPS removes redundant intermediate grid points along visible horizontal and vertical free runs. This reduces unnecessary waypoint density while preserving feasibility on the discrete map.
+
+<!-- ![Raw A Star to VLoSPS](assets/gifs/02_raw_aastar_to_vlosps.gif) -->
+<img src="assets/gifs/02_raw_aastar_to_vlosps.gif" width="50%" alt="Raw A Star to VLoSPS">
+<img src="" width="50%" alt="">
 
 ### 3. DAPPA
 DAPPA adjusts selected turning points using local directional structure. This step introduces half cell offsets when the local geometry supports a safer and smoother directional transition.
 
-![VLoSPS to DAPPA](assets/gifs/03_vlosps_to_dappa.gif)
+<!-- ![VLoSPS to DAPPA](assets/gifs/03_vlosps_to_dappa.gif) -->
+<img src="assets/gifs/03_vlosps_to_dappa.gif" width="50%" alt="VLoSPS to DAPPA">
 
 ### 4. BCPA
 BCPA augments the path by inserting obstacle boundary contact points at diagonally relevant local configurations. This does not aim to reduce path length directly. Instead, it enriches the path representation near obstacle boundaries, which the subsequent line of sight refinement stage has a more informative geometric structure to operate on.
 
-![DAPPA to BCPA](assets/gifs/04_dappa_to_bcpa.gif)
+<!-- ![DAPPA to BCPA](assets/gifs/04_dappa_to_bcpa.gif) -->
+<img src="assets/gifs/04_dappa_to_bcpa.gif" width="50%" alt="DAPPA to BCPA">
 
 ### 5. OLoSPR
 OLoSPR performs omnidirectional line of sight refinement on the augmented path. The implementation includes `_cells_on_segment_supercover_dda`, every candidate shortcut is checked through supercover traversal of the cells touched by the segment. This makes the shortcut validation more conservative and more geometrically meaningful near obstacle boundaries.
 
-![BCPA to OLoSPR](assets/gifs/05_bcpa_to_olospr.gif)
+<!-- ![BCPA to OLoSPR](assets/gifs/05_bcpa_to_olospr.gif) -->
+<img src="assets/gifs/05_bcpa_to_olospr.gif" width="50%" alt="BCPA to OLoSPR">
 
 ### 6. Path Smoothing
 The final stage densifies the refined polyline and applies path smoothing. This stage is intended to improve geometric continuity and visual smoothness while preserving the high level path structure obtained after OLoSPR.
 
-![OLoSPR to Path Smoothing](assets/gifs/06_olospr_to_path_smoothing.gif)
+<!-- ![OLoSPR to Path Smoothing](assets/gifs/06_olospr_to_path_smoothing.gif) -->
+<img src="assets/gifs/06_olospr_to_path_smoothing.gif" width="50%" alt="OLoSPR to Path Smoothing">
 
 ## Full stage evolution
 
-![Full pipeline](assets/gifs/01_full_pipeline.gif)
+<!-- ![Full pipeline](assets/gifs/01_full_pipeline.gif) -->
+<img src="assets/gifs/01_full_pipeline.gif" width="50%" alt="Full pipeline">
 
 
 ## This script executes the following sequence
