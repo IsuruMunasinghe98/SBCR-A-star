@@ -147,6 +147,23 @@ The final stage densifies the refined polyline and applies path smoothing. This 
 
 ## Citation Notice
 
-Please kindly cite the following paper appropriately when using this repository, its methodology, or any derived results in academic publications or related scholarly work.
+Use of this repository, its underlying methodology, implementation components, experimental workflow, visual materials, or derivative results in academic or scholarly work should be accompanied by an appropriate citation and acknowledgement of the following authors.
 
-⚠️ **Note:** The associated paper describing this work is currently under review.
+**Authors**  
+Isuru Munasinghe∗§  
+Charitha Dombawala∗  
+Asanka Perera†§  
+Sreenatha Anavatti‡  
+Matt Garratt‡  
+
+**Affiliations**  
+∗ Department of Electronic and Telecommunication Engineering, University of Moratuwa, Katubedda, Sri Lanka  
+† School of Science, Engineering and Digital Technologies, University of Southern Queensland, Brisbane, Australia  
+‡ School of Engineering and Technology, University of New South Wales, Canberra, Australia  
+
+§ Corresponding authors  
+isuru.munasinghe1998@gmail.com  
+asanka.perera@unisq.edu.au  
+
+⚠️ **Note**  
+The manuscript associated with this repository is currently under review. Until the final publication details are available, please cite the repository and acknowledge the authors listed above in any related academic use.
