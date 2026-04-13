@@ -122,11 +122,16 @@ OLoSPR performs omnidirectional line of sight refinement on the augmented path. 
 <!-- ![BCPA to OLoSPR](assets/gifs/05_bcpa_to_olospr.gif) -->
 <img src="assets/gifs/05_bcpa_to_olospr.gif" width="50%" alt="BCPA to OLoSPR">
 
-### 6. Path Smoothing
+### 6. OBGPR
+OBGPR refines the reconstructed path by using the free corridor defined along obstacle boundaries. It replaces redundant intermediate waypoints with longer feasible corridor-aligned segments whenever safe boundary-guided connection is possible.
+
+<img src="assets/gifs/06_olosps_to_obgpr.gif" width="50%" alt="OLoSPR to OBGPR">
+
+### 7. Path Smoothing
 The final stage densifies the refined polyline and applies path smoothing. This stage is intended to improve geometric continuity and visual smoothness while preserving the high level path structure obtained after OLoSPR.
 
 <!-- ![OLoSPR to Path Smoothing](assets/gifs/06_olospr_to_path_smoothing.gif) -->
-<img src="assets/gifs/06_olospr_to_path_smoothing.gif" width="50%" alt="OLoSPR to Path Smoothing">
+<img src="assets/gifs/07_obgpr_to_path_smoothing.gif" width="50%" alt="OBGPR to Path Smoothing">
 
 ## Full stage evolution
 
@@ -150,7 +155,7 @@ The final stage densifies the refined polyline and applies path smoothing. This 
 **Authors**  
 Isuru Munasinghe∗  
 Charitha Dombawala∗  
-Asanka Perera†  
+Asanka Perera†
 Sreenatha Anavatti‡  
 Matt Garratt‡  
 
