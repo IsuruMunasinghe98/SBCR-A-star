@@ -20,7 +20,8 @@ SBCR_ASTAR_REPRO/
 │       ├── 03_vlosps_to_dappa.gif
 │       ├── 04_dappa_to_bcpa.gif
 │       ├── 05_bcpa_to_olospr.gif
-│       └── 06_olospr_to_path_smoothing.gif
+│       ├── 06_olosps_to_obgpr.gif
+│       └── 07_obgpr_to_path_smoothing.gif
 ├── data/
 │   ├── __init__.py
 │   └── demo_grids.py
@@ -41,7 +42,8 @@ SBCR_ASTAR_REPRO/
 │   ├── VLoSPS.py
 │   ├── DAPPA.py
 │   ├── BCPA.py
-│   └── OLoSPR.py
+│   ├── OLoSPR.py
+│   └── OBGPR.py
 ├── smoothing/
 │   ├── __init__.py
 │   ├── bezier_curve.py
@@ -62,6 +64,7 @@ This folder contains the four path refinement stages used in the structured pipe
 - `DAPPA.py` implements the direction aware path point adjustment stage
 - `BCPA.py` implements the boundary contact path augmentation stage and includes the obstacle corner contact generation logic
 - `OLoSPR.py` implements the omnidirectional line of sight refinement stage and includes `_cells_on_segment_supercover_dda` for supercover based cell traversal along path segments
+- `OBGPR.py` implements the obstacle-boundary-guided path refinement stage
 
 ### `classical_planners`
 This folder contains classical graph search baselines.
@@ -147,8 +150,9 @@ The final stage densifies the refined polyline and applies path smoothing. This 
 4. Run `DAPPA`
 5. Run `BCPA`
 6. Run `OLoSPR`
-7. Densify the path
-8. Generate the quadratic or rational quadratic or B-spline smoothing output
+7. Run `OBGPR`
+8. Densify the path
+9. Generate the quadratic or rational quadratic or B-spline smoothing output
 
 ## Citation
 
