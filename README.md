@@ -20,7 +20,7 @@ SBCR_ASTAR_REPRO/
 │       ├── 03_vlosps_to_dappa.gif
 │       ├── 04_dappa_to_bcpa.gif
 │       ├── 05_bcpa_to_olospr.gif
-│       ├── 06_olosps_to_obgpr.gif
+│       ├── 06_olospr_to_obgpr.gif
 │       └── 07_obgpr_to_path_smoothing.gif
 ├── data/
 │   ├── __init__.py
@@ -128,7 +128,7 @@ OLoSPR performs omnidirectional line of sight refinement on the augmented path. 
 ### 6. OBGPR
 OBGPR refines the reconstructed path by using the free corridor defined along obstacle boundaries. It replaces redundant intermediate waypoints with longer feasible corridor-aligned segments whenever safe boundary-guided connection is possible.
 
-<img src="assets/gifs/06_olosps_to_obgpr.gif" width="50%" alt="OLoSPR to OBGPR">
+<img src="assets/gifs/06_olospr_to_obgpr.gif" width="50%" alt="OLoSPR to OBGPR">
 
 ### 7. Path Smoothing
 The final stage densifies the refined polyline and applies path smoothing. This stage is intended to improve geometric continuity and visual smoothness while preserving the high level path structure obtained after OLoSPR.

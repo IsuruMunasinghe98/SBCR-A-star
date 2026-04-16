@@ -4,37 +4,50 @@ from typing import List, Tuple, Sequence
 def _all_free(grid: Sequence[Sequence[int]], cells: List[Tuple[int, int]]) -> bool:
     H, W = len(grid), len(grid[0])
     for (r, c) in cells:
-        if not (0 <= r < H and 0 <= c < W) or grid[r][c] != 1:
+        if not (0 <= r < H and 0 <= c < W):
+            return False
+        if grid[r][c] != 1:
             return False
     return True
 
-def _cells_on_segment_supercover_dda(a: Tuple[float,float],
-                                     b: Tuple[float,float],
-                                     H: int, W: int) -> List[Tuple[int,int]]:
-    ar, ac = a; br, bc = b
-    r = int(math.floor(ar)); c = int(math.floor(ac))
-    r_end = int(math.floor(br)); c_end = int(math.floor(bc))
+
+def _append_unique(out: List[Tuple[int, int]], cell: Tuple[int, int], H: int, W: int):
+    r, c = cell
+    if 0 <= r < H and 0 <= c < W:
+        if not out or out[-1] != cell:
+            out.append(cell)
+
+
+def _cells_on_segment_supercover_dda(a: Tuple[float, float],
+                                     b: Tuple[float, float],
+                                     H: int, W: int,
+                                     eps: float = 1e-12) -> List[Tuple[int, int]]:
+
+    ar, ac = float(a[0]) + 0.5, float(a[1]) + 0.5
+    br, bc = float(b[0]) + 0.5, float(b[1]) + 0.5
+
+    r = int(math.floor(ar))
+    c = int(math.floor(ac))
+    r_end = int(math.floor(br))
+    c_end = int(math.floor(bc))
 
     dr = br - ar
     dc = bc - ac
 
-    if dr == 0 and dc == 0:
+    if abs(dr) < eps and abs(dc) < eps:
         return [(r, c)] if 0 <= r < H and 0 <= c < W else []
 
     step_r = 1 if dr > 0 else -1 if dr < 0 else 0
     step_c = 1 if dc > 0 else -1 if dc < 0 else 0
 
-    inv_dr = 1.0 / dr if dr != 0 else float('inf')
-    inv_dc = 1.0 / dc if dc != 0 else float('inf')
-
     def first_t_max(p, dp, cell, step):
-        if dp == 0:
-            return float('inf')
+        if abs(dp) < eps:
+            return float("inf")
         next_boundary = cell + (1 if step > 0 else 0)
         return (next_boundary - p) / dp
 
     def t_delta(dp):
-        return abs(1.0 / dp) if dp != 0 else float('inf')
+        return abs(1.0 / dp) if abs(dp) >= eps else float("inf")
 
     t = 0.0
     t_end = 1.0
@@ -44,57 +57,72 @@ def _cells_on_segment_supercover_dda(a: Tuple[float,float],
     tDeltaR = t_delta(dr)
     tDeltaC = t_delta(dc)
 
-    out = []
+    out: List[Tuple[int, int]] = []
+    _append_unique(out, (r, c), H, W)
 
-    if 0 <= r < H and 0 <= c < W:
-        out.append((r, c))
+    while t <= t_end + eps:
+        if abs(tMaxR - tMaxC) <= eps:
+            nr = r + step_r
+            nc = c + step_c
 
-    while t <= t_end:
-        if tMaxR < tMaxC:
-            # step in r
+            _append_unique(out, (nr, c), H, W)
+            _append_unique(out, (r, nc), H, W)
+
+            r = nr
+            c = nc
+            t = tMaxR
+            tMaxR += tDeltaR
+            tMaxC += tDeltaC
+            _append_unique(out, (r, c), H, W)
+
+        elif tMaxR < tMaxC:
             r += step_r
             t = tMaxR
             tMaxR += tDeltaR
+            _append_unique(out, (r, c), H, W)
+
         else:
-            # step in c
             c += step_c
             t = tMaxC
             tMaxC += tDeltaC
+            _append_unique(out, (r, c), H, W)
 
-        if t > t_end:
+        if t > t_end + eps:
             break
 
-        if 0 <= r < H and 0 <= c < W:
-            # avoid duplicates
-            if not out or out[-1] != (r, c):
-                out.append((r, c))
-
-    if 0 <= r_end < H and 0 <= c_end < W and (r_end, c_end) not in out:
-        out.append((r_end, c_end))
-
+    _append_unique(out, (r_end, c_end), H, W)
     return out
 
-def segment_is_free(grid: List[List[int]], a: Tuple[float, float], b: Tuple[float, float]) -> bool:
+
+def segment_is_free(grid: List[List[int]],
+                    a: Tuple[float, float],
+                    b: Tuple[float, float],
+                    eps: float = 1e-12) -> bool:
     H, W = len(grid), len(grid[0])
-    cells = _cells_on_segment_supercover_dda(a, b, H, W)
+    cells = _cells_on_segment_supercover_dda(a, b, H, W, eps=eps)
     return bool(cells) and _all_free(grid, cells)
 
+
 def OLoSPR(grid: List[List[int]],
-                 path: List[Tuple[float, float]],
-                 eps: float = 1e-9) -> List[Tuple[float, float]]:
+           path: List[Tuple[float, float]],
+           eps: float = 1e-12) -> List[Tuple[float, float]]:
+
     n = len(path)
     if n <= 1:
         return [tuple(p) for p in path]
 
-    out: List[Tuple[float, float]] = [path[0]]
+    out: List[Tuple[float, float]] = [tuple(path[0])]
     i = 0
-    while i < len(path) - 1:
+
+    while i < n - 1:
         chosen = i + 1
-        for j in range(len(path) - 1, i, -1):
-            if segment_is_free(grid, path[i], path[j]):
+
+        for j in range(n - 1, i, -1):
+            if segment_is_free(grid, path[i], path[j], eps=eps):
                 chosen = j
                 break
-        out.append(path[chosen])
+
+        out.append(tuple(path[chosen]))
         i = chosen
 
     return out
