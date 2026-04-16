@@ -159,7 +159,7 @@ The final stage densifies the refined polyline and applies path smoothing. This 
 **Authors**  
 Isuru Munasinghe∗  
 Charitha Dombawala∗  
-Asanka Perera†
+Asanka Perera†        
 Sreenatha Anavatti‡  
 Matt Garratt‡  
 
