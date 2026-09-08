@@ -168,8 +168,10 @@ Matt Garratt‡
 † School of Science, Engineering and Digital Technologies, University of Southern Queensland, Brisbane, Australia  
 ‡ School of Engineering and Technology, University of New South Wales, Canberra, Australia
 
-Please kindly cite the following paper appropriately when using this repository, its methodology, or any derived results in academic publications or related scholarly work.
 
+If you use **SBCR-A\***, the implementation provided in this repository, or its methodology in academic work, please cite the following publication:
+
+```bibtex
 @article{Munasinghe2026,
   author  = {Munasinghe, Isuru and Dombawala, Charitha and Perera, Asanka and Anavatti, Sreenatha and Garratt, Matt},
   title   = {SBCR-A*: Supercover-Based Corridor Reconstruction for Optimal Path Length in Grid-Based Navigation},
@@ -180,3 +182,4 @@ Please kindly cite the following paper appropriately when using this repository,
   doi     = {10.1007/s10846-026-02450-5},
   url     = {https://doi.org/10.1007/s10846-026-02450-5}
 }
+```
