@@ -170,4 +170,13 @@ Matt Garratt‡
 
 Please kindly cite the following paper appropriately when using this repository, its methodology, or any derived results in academic publications or related scholarly work.
 
-⚠️ **Note:** The associated paper describing this work is currently under review.
+@article{Munasinghe2026,
+  author  = {Munasinghe, Isuru and Dombawala, Charitha and Perera, Asanka and Anavatti, Sreenatha and Garratt, Matt},
+  title   = {SBCR-A*: Supercover-Based Corridor Reconstruction for Optimal Path Length in Grid-Based Navigation},
+  journal = {Journal of Intelligent \& Robotic Systems},
+  year    = {2026},
+  date    = {2026-09-04},
+  issn    = {1573-0409},
+  doi     = {10.1007/s10846-026-02450-5},
+  url     = {https://doi.org/10.1007/s10846-026-02450-5}
+}
